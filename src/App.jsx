@@ -1,9 +1,12 @@
-import LoginPage from './pages/LoginPage'
+import React, {lazy, Suspense} from "react";
+const LoginPage = lazy(() => import('./pages/LoginPage'))
 
 const App = () => {
   return (
     <div>
-      <LoginPage />
+      <Suspense fallback={<div>Loading</div>}>
+        <LoginPage />
+      </Suspense>
     </div>
   )
 }

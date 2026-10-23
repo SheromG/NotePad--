@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import useThemeStore from '../store/useThemeStore';
 
 const handleSubmit = (e, task, input, setData) =>{
     e.preventDefault();
@@ -14,8 +14,8 @@ const handleSubmit = (e, task, input, setData) =>{
 }
 
 const Form = ({data, setData}) => {
-
-    const [input, setInput] = useState('')
+    const input = useThemeStore((state) => state.text)
+    const setInput = useThemeStore((state) => state.setText)
 
     return (
         <div className='flex justify-center py-6'>

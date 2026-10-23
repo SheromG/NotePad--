@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import credentials from '../data/credentials.json'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
 
@@ -10,6 +11,25 @@ const LoginPage = () => {
         userName: "",
         password: "",
     });
+
+    const [users, setUsers] = useState([])
+
+    const [error, setError ]= useState('')
+
+    useEffect(() =>{
+        const getData = async () =>{
+                try {
+                    const data = await axios.get('https://dummyjson.com/users')
+                    setUsers(data.data.users);
+                } catch (error) {
+                    console.log(error)
+                    setError("Failed to fetch users")
+                }
+            }
+            getData()
+    },[])
+
+    console.log(users)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,6 +86,9 @@ const LoginPage = () => {
                         Login
                     </button>
                 </form>
+                {
+                    error && <h1 className="text-center">{error}</h1> 
+                }
             </div>
         </div>
     );
